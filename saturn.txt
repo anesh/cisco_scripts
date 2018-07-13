@@ -1,0 +1,6 @@
+Value Clock (\d+(\:\d+){2})
+Value List Drops (.*)
+
+Start
+  ^${Clock}
+  ^.*Total output drops: ${Drops}  

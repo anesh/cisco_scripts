@@ -1,0 +1,46 @@
+https://supportforums.cisco.com/discussion/10019981/remote-ping
+
+
+The easiest way to configure an IP SLA ICMP echo operation is from the CLI like:
+
+ip sla 1
+
+icmp-echo 10.1.1.1
+
+frequency 60
+
+threshold 5
+
+timeout 50
+
+ip sla schedule 1 start-time now life forever
+
+
+The other way to configure a remote ping is to use the CISCO-PING-MIB. This can only be done via SNMP using SNMP SET requests:
+
+snmpset -v 1 -c private 10.1.1.1 ciscoPingProtocol.333 i 1 ciscoPingAddress s a:1:1:2 ciscoPingOwner.333 s "marcus" ciscoPingEntryStatus.333 i 4
+
+This will trigger a five packet ping from 10.1.1.1 to 10.1.1.2. The packet size will be 100 bytes, and the timeout will be two seconds. To get the result of the ping, just poll ciscoPingReceivedPackets, ciscoPingMinRtt, ciscoPingSentPackets, ciscoPingAvgRtt, and ciscoPingMaxRtt. ciscoPingCompleted will be true once the ping completes.
+
+
+
+http://www.cisco.com/c/en/us/support/docs/ip/simple-network-management-protocol-snmp/26007-faq-snmpcounter.html
+
+
+http://www.cisco.com/c/en/us/support/docs/ip/simple-network-management-protocol-snmp/15215-collect-cpu-util-snmp.html
+
+
+txload rxload reliability
+https://supportforums.cisco.com/discussion/11018931/need-oid-rxload-and-input-rate
+http://www.cisco.com/c/en/us/support/docs/ip/simple-network-management-protocol-snmp/8141-calculate-bandwidth-snmp.html
+
+
+tx means transmit
+rx means receive
+Your rxload is , (9/255)*100 = 3.5%
+If your rxload or txload is 255/255 , then you have a fully saturated interface load...
+
+
+http://packetlife.net/blog/2011/jul/8/evaluating-txload-and-rxload/
+
+

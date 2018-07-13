@@ -1,0 +1,11 @@
+C:\Python27\Lib\site-packages>python textfsm.py image.txt input.txt
+FSM Template:
+Value Image (.*)
+
+Start
+  ^System image file is ${Image}
+
+
+FSM Table:
+['Image']
+['"flash0:c3900-universalk9-mz.SPA.151-4.M6.bin"']
